@@ -1,2 +1,2 @@
-# muti-migration-system-server
+# migration-eureka-server
 升级版边缘计算服务迁移系统上层服务核心控制模块，主要使用技术为Springboot和Springcloud组件
