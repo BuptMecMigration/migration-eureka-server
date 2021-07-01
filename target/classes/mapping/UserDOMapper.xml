@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDOMapper">
+
+  <resultMap id="BaseResultMap" type="com.dataobject.UserDO">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="register_mode" jdbcType="VARCHAR" property="registerMode" />
+    <result column="user_level" jdbcType="TINYINT" property="userLevel" />
+    <result column="thirdparty_id" jdbcType="VARCHAR" property="thirdpartyId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    user_id, user_name, register_mode, user_level, thirdparty_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dataobject.UserDO">
+    insert into user_info (user_id, user_name, register_mode, 
+      user_level, thirdparty_id)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, 
+      #{userLevel,jdbcType=TINYINT}, #{thirdpartyId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dataobject.UserDO">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="registerMode != null">
+        register_mode,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="thirdpartyId != null">
+        thirdparty_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="registerMode != null">
+        #{registerMode,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="thirdpartyId != null">
+        #{thirdpartyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dataobject.UserDO">
+    update user_info
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="registerMode != null">
+        register_mode = #{registerMode,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="thirdpartyId != null">
+        thirdparty_id = #{thirdpartyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dataobject.UserDO">
+    update user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      register_mode = #{registerMode,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=TINYINT},
+      thirdparty_id = #{thirdpartyId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

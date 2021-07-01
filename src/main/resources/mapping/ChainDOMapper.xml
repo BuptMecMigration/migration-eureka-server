@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChainDOMapper">
+  <resultMap id="BaseResultMap" type="com.dataobject.ChainDO">
+    <id column="chain_id" jdbcType="INTEGER" property="chainId" />
+    <result column="service_num" jdbcType="INTEGER" property="serviceNum" />
+    <result column="updateUserId" jdbcType="INTEGER" property="updateuserid" />
+    <result column="addr_map" jdbcType="VARCHAR" property="addrMap" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chain_id, service_num, updateUserId, addr_map
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chain_info
+    where chain_id = #{chainId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chain_info
+    where chain_id = #{chainId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dataobject.ChainDO">
+    insert into chain_info (chain_id, service_num, updateUserId, 
+      addr_map)
+    values (#{chainId,jdbcType=INTEGER}, #{serviceNum,jdbcType=INTEGER}, #{updateuserid,jdbcType=INTEGER}, 
+      #{addrMap,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dataobject.ChainDO">
+    insert into chain_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chainId != null">
+        chain_id,
+      </if>
+      <if test="serviceNum != null">
+        service_num,
+      </if>
+      <if test="updateuserid != null">
+        updateUserId,
+      </if>
+      <if test="addrMap != null">
+        addr_map,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chainId != null">
+        #{chainId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceNum != null">
+        #{serviceNum,jdbcType=INTEGER},
+      </if>
+      <if test="updateuserid != null">
+        #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="addrMap != null">
+        #{addrMap,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dataobject.ChainDO">
+    update chain_info
+    <set>
+      <if test="serviceNum != null">
+        service_num = #{serviceNum,jdbcType=INTEGER},
+      </if>
+      <if test="updateuserid != null">
+        updateUserId = #{updateuserid,jdbcType=INTEGER},
+      </if>
+      <if test="addrMap != null">
+        addr_map = #{addrMap,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where chain_id = #{chainId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dataobject.ChainDO">
+    update chain_info
+    set service_num = #{serviceNum,jdbcType=INTEGER},
+      updateUserId = #{updateuserid,jdbcType=INTEGER},
+      addr_map = #{addrMap,jdbcType=VARCHAR}
+    where chain_id = #{chainId,jdbcType=INTEGER}
+  </update>
+</mapper>
