@@ -29,7 +29,7 @@
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, 
       #{userLevel,jdbcType=TINYINT}, #{thirdpartyId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dataobject.UserDO">
+  <insert id="insertSelective" parameterType="com.dataobject.UserDO" keyProperty="userId" useGeneratedKeys="true">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
